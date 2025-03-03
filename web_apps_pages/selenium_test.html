@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Checkbox Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .checkbox-list {
+            margin-bottom: 20px;
+        }
+        .checkbox-item {
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 60%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Dynamic Checkboxes</h2>
+        
+        <!-- Text Field and Add Button -->
+        <input type="text" id="checkboxText" placeholder="Enter checkbox label">
+        <button id="addButton">Add Checkbox</button>
+
+        <!-- Display Checkboxes -->
+        <div class="checkbox-list" id="checkboxList">
+            <div class="checkbox-item">
+                <input type="checkbox" id="checkbox1">
+                <label for="checkbox1">Sample Checkbox 1</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="checkbox2">
+                <label for="checkbox2">Sample Checkbox 2</label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const addButton = document.getElementById("addButton");
+        const checkboxText = document.getElementById("checkboxText");
+        const checkboxList = document.getElementById("checkboxList");
+
+        // Event listener for Add button
+        addButton.addEventListener("click", function() {
+            const textValue = checkboxText.value.trim();
+
+            // Check if the text field is not empty
+            if (textValue !== "") {
+                // Create a new checkbox item
+                const newCheckboxItem = document.createElement("div");
+                newCheckboxItem.classList.add("checkbox-item");
+
+                // Create a new checkbox
+                const newCheckbox = document.createElement("input");
+                newCheckbox.type = "checkbox";
+                newCheckbox.id = "checkbox" + (checkboxList.children.length + 1); // Unique ID
+
+                // Create a new label
+                const newLabel = document.createElement("label");
+                newLabel.setAttribute("for", newCheckbox.id);
+                newLabel.textContent = textValue;
+
+                // Append checkbox and label to the new item
+                newCheckboxItem.appendChild(newCheckbox);
+                newCheckboxItem.appendChild(newLabel);
+
+                // Append the new checkbox item to the list
+                checkboxList.appendChild(newCheckboxItem);
+
+                // Clear the text field after adding
+                checkboxText.value = "";
+            } else {
+                alert("Please enter a label for the checkbox.");
+            }
+        });
+    </script>
+
+</body>
+</html>
