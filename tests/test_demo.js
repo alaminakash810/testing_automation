@@ -9,6 +9,10 @@ async function example() {
         console.log("Navigating to the page...");
         await driver.get("http://localhost:5500/web_apps_pages/selenium_test.html");
 
+        let title = await driver.getTitle();
+        console.log(`The title of the website is: ${title}`);
+        await driver.manage().setTimeouts({implicit: 500});
+        
         // Wait for the text field to be loaded (wait for 5 seconds)
         console.log("Waiting for the text field to be available...");
         await driver.wait(until.elementLocated(By.id("checkboxText")), 5000);
