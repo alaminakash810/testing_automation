@@ -1,89 +1,99 @@
-# Selenium Automation Testing with JavaScript
+# Selenium Automation Testing with JavaScript  
 
-## Prerequisites
-Before setting up Selenium for JavaScript, ensure you have the following installed:
+## Prerequisites  
 
-1. **Node.js & npm** - Download and install from [Node.js official website](https://nodejs.org/). Check if Node.js and npm are installed by running:
-   ```sh
-   node -v
-   npm -v
-   ```
-   This should output the installed versions of Node.js and npm.
+Before setting up Selenium for JavaScript, ensure you have the following installed:  
 
-2. **Google Chrome** (or any other browser you plan to test on). Ensure you have the latest version installed.
+1. **Node.js & npm**  
+   - Download and install from [Node.js official website](https://nodejs.org/).  
+   - Check if Node.js and npm are installed by running:  
+     ```sh
+     node -v
+     npm -v
+     ```
+   - This should output the installed versions of Node.js and npm.  
 
-3. **WebDriver for Chrome** (Chromedriver) or another browser-specific driver. ChromeDriver should match your installed Chrome version.
-   You can download it from [ChromeDriver Downloads](https://sites.google.com/chromium.org/driver/).
+2. **Google Chrome** (or another browser for testing).  
+   - Ensure you have the latest version installed.  
 
-## Installation
+3. **WebDriver for Chrome** (Chromedriver) or another browser-specific driver.  
+   - ChromeDriver should match your installed Chrome version.  
+   - Download it from [ChromeDriver Downloads](https://sites.google.com/chromium.org/driver/).  
 
-1. **Initialize a new Node.js project (if not already set up):**
-   ```sh
-   npm init -y
-   ```
-   This creates a `package.json` file in your project directory.
+## Installation  
 
-2. **Install Selenium WebDriver:**
-   ```sh
-   npm install selenium-webdriver
-   ```
-   This installs the Selenium WebDriver package required for running automation scripts.
+### 1. Initialize a New Node.js Project (If Not Already Set Up)  
 
-3. **Install ChromeDriver (for Chrome testing):**
-   ```sh
-   npm install chromedriver
-   ```
-   If you plan to use Firefox, install `geckodriver` instead:
-   ```sh
-   npm install geckodriver
-   ```
+Run the following command to create a `package.json` file:  
 
-4. **(Optional) Install Mocha or Jest for running tests:**
-   ```sh
-   npm install mocha chai --save-dev
-   ```
-   or
-   ```sh
-   npm install jest --save-dev
-   ```
-   These frameworks help structure and execute tests efficiently.
-
-## Setting Up Your First Test
-
-Create a test script (e.g., `test.js`) and add the following code:
-
-```javascript
-const { Builder, By, Key, until } = require('selenium-webdriver');
-
-(async function example() {
-    let driver = await new Builder().forBrowser('chrome').build();
-    try {
-        await driver.get('https://www.google.com');
-        let searchBox = await driver.findElement(By.name('q'));
-        await searchBox.sendKeys('Selenium WebDriver', Key.RETURN);
-        await driver.wait(until.titleContains('Selenium WebDriver'), 5000);
-        console.log('Test passed: Search executed successfully');
-    } catch (error) {
-        console.error('Test failed:', error);
-    } finally {
-        await driver.quit();
-    }
-})();
+```sh
+npm init -y
 ```
 
-## Running the Test
+### 2. Install Required Packages  
 
-1. Ensure ChromeDriver is available in your system path or specify the path manually.
-2. Run the test using:
-   ```sh
-   node test.js
-   ```
-   If everything is set up correctly, the script will open Google, perform a search, and validate the page title.
+#### Install Selenium WebDriver  
+```sh
+npm install selenium-webdriver
+```
 
-## Running Tests with Mocha
+#### Install ChromeDriver (for Chrome Testing)  
+```sh
+npm install chromedriver
+```
 
-1. Create a `test` folder and add a test file, e.g., `test/googleTest.js`.
-2. Use the following example test:
+> **For Firefox users**, install `geckodriver` instead:  
+```sh
+npm install geckodriver
+```
+
+## Using Mocha for Testing  
+
+### Installing Mocha (Version 11.1.0)  
+
+To use Mocha version 11.1.0 in this project, follow these steps:  
+
+#### 1. Add Mocha to `package.json`  
+
+Manually add the following entry under `devDependencies` in your `package.json`:  
+
+```json
+"devDependencies": {
+  "mocha": "11.1.0"
+}
+```
+
+#### 2. Install Dependencies  
+
+After updating `package.json`, run the following command to install Mocha:  
+
+```sh
+npm install
+```
+
+This will install Mocha version **11.1.0** and any other dependencies listed in `package.json`.
+
+#### 3. Verify the Installation  
+
+To check if Mocha is installed correctly, run:  
+
+```sh
+npx mocha --version
+```
+
+If installed successfully, it will display:  
+
+```sh
+11.1.0
+```
+
+Mocha is now ready for use in your project! 🎯 🚀  
+
+### Running Tests with Mocha  
+
+1. **Create a `test` directory** and add a test file, e.g., `test/googleTest.js`.  
+
+2. **Write the test script**  
 
 ```javascript
 const { Builder, By, Key, until } = require('selenium-webdriver');
@@ -111,28 +121,30 @@ describe('Google Search Test', function() {
 });
 ```
 
-3. Run the test using Mocha:
-   ```sh
-   npx mocha test/
-   ```
-   This will execute all test files inside the `test/` directory.
+3. **Run the Mocha test**  
 
-## Additional Configurations
+```sh
+npx mocha test/
+```
 
-### Using a Different Browser
+This will execute all test files inside the `test/` directory.
 
-Change `.forBrowser('chrome')` to:
-- `'firefox'` for Mozilla Firefox
-- `'edge'` for Microsoft Edge
+## Additional Configurations  
 
-Example:
+### Using a Different Browser  
+
+Change `.forBrowser('chrome')` to:  
+- `'firefox'` for Mozilla Firefox  
+- `'edge'` for Microsoft Edge  
+
+Example:  
 ```javascript
 let driver = new Builder().forBrowser('firefox').build();
 ```
 
-### Running Tests in Headless Mode
+### Running Tests in Headless Mode  
 
-To run tests without opening a browser window (useful for CI/CD pipelines), use:
+To run tests without opening a browser window (useful for CI/CD pipelines), use:  
 
 ```javascript
 const chrome = require('selenium-webdriver/chrome');
@@ -140,43 +152,45 @@ let options = new chrome.Options().headless();
 let driver = new Builder().forBrowser('chrome').setChromeOptions(options).build();
 ```
 
-### Using Environment Variables for WebDriver
-Instead of manually managing WebDriver executables, set environment variables:
+### Using Environment Variables for WebDriver  
 
-- **Windows:**
+Instead of manually managing WebDriver executables, set environment variables:  
+
+- **Windows:**  
   ```sh
   set PATH=%PATH%;C:\path\to\chromedriver
   ```
-- **Mac/Linux:**
+- **Mac/Linux:**  
   ```sh
   export PATH=$PATH:/path/to/chromedriver
   ```
 
 This allows you to run Selenium tests without specifying the driver location explicitly.
 
-## Troubleshooting
+## Troubleshooting  
 
-- **ChromeDriver Version Mismatch:**
-  - Ensure your ChromeDriver version matches your installed Chrome browser version.
-  - Run:
-    ```sh
-    chromedriver --version
-    google-chrome --version
-    ```
+### **ChromeDriver Version Mismatch**  
+- Ensure your ChromeDriver version matches your installed Chrome browser version.  
+- Run:  
+  ```sh
+  chromedriver --version
+  google-chrome --version
+  ```
 
-- **WebDriver Not Found:**
-  - If `chromedriver` is not found, install it manually or specify the path explicitly:
-    ```javascript
-    let service = new chrome.ServiceBuilder('/path/to/chromedriver').build();
-    let driver = new Builder().forBrowser('chrome').setChromeService(service).build();
-    ```
+### **WebDriver Not Found**  
+- If `chromedriver` is not found, install it manually or specify the path explicitly:  
+  ```javascript
+  let service = new chrome.ServiceBuilder('/path/to/chromedriver').build();
+  let driver = new Builder().forBrowser('chrome').setChromeService(service).build();
+  ```
 
-- **Selenium Errors:**
-  - Ensure you have installed `selenium-webdriver` properly.
-  - Restart your terminal or system if WebDriver does not respond.
-  - Run `npm list selenium-webdriver` to verify the package installation.
+### **Selenium Errors**  
+- Ensure you have installed `selenium-webdriver` properly.  
+- Restart your terminal or system if WebDriver does not respond.  
+- Run `npm list selenium-webdriver` to verify the package installation.  
 
-## Conclusion
-You now have a complete Selenium setup for JavaScript testing! Modify and expand your tests 
-as needed to automate web interactions efficiently. Feel free to integrate this with CI/CD pipelines 
-for automated deployment and testing workflows.
+## Conclusion  
+
+You now have a complete Selenium setup for JavaScript testing!  
+Modify and expand your tests as needed to automate web interactions efficiently.  
+Feel free to integrate this with CI/CD pipelines for automated deployment and testing workflows.  
