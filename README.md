@@ -37,6 +37,13 @@ npm init -y
 npm install selenium-webdriver
 ```
 
+### 3. Install Required Packages "axios" for HTTP method checking [Optional] 
+
+#### Install axios 
+```sh
+npm install axios
+```
+
 #### Install ChromeDriver (for Chrome Testing)  
 ```sh
 npm install chromedriver
